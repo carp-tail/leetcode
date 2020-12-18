@@ -16,10 +16,39 @@ package com.guaniu.leetcode.adt;
 public class L400Solution {
 
     public static void main(String[] args) {
-
+        char[][] grid = new char[][]{
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}
+        };
+        L400Solution solution = new L400Solution();
+        System.out.println(solution.numIsland(grid));
     }
 
     public int numIsland(char[][] grid){
-        return 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        int count = 0;
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                if (grid[i][j] == '1'){
+                    dfs(grid, i, j, m, n);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    void dfs(char[][] grid, int i, int j, int m, int n){
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1'){
+            return;
+        }
+        grid[i][j] = '2';
+        dfs(grid, i - 1, j, m, n);
+        dfs(grid, i + 1, j, m, n);
+        dfs(grid, i, j - 1, m, n);
+        dfs(grid, i, j + 1, m, n);
     }
 }
